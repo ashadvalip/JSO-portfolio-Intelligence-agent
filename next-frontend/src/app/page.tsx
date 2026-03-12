@@ -22,7 +22,8 @@ export default function Home() {
     setData(null);
 
     try {
-      const response = await axios.post("http://127.0.0.1:3000/analyze-portfolio", {
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:3000";
+      const response = await axios.post(`${API_BASE_URL}/analyze-portfolio`, {
         githubUrl,
       });
       setData(response.data);
