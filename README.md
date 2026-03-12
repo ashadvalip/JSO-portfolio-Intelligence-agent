@@ -1,6 +1,6 @@
 # GitHub Portfolio Intelligence Agent
 
-![CI](https://github.com/<username>/<repo>/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/ashadvalip/JSO-portfolio-Intelligence-agent/actions/workflows/ci.yml/badge.svg)
 
 An AI agent web application that analyzes a developer's GitHub portfolio and generates a comprehensive technical evaluation report.
 
