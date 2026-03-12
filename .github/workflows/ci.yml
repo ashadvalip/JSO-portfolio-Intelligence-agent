@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install backend dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Install frontend dependencies
+        working-directory: ./next-frontend
+        run: npm install
+
+      - name: Build frontend
+        working-directory: ./next-frontend
+        run: npm run build
+
+      - name: Validate backend server
+        working-directory: ./backend
+        run: |
+          npm start &
+          SERVER_PID=$!
+          sleep 5
+          if kill -0 $SERVER_PID 2>/dev/null; then
+            echo "Server is running successfully."
+            kill $SERVER_PID
+          else
+            echo "Server failed to start or crashed."
+            exit 1
+          fi
